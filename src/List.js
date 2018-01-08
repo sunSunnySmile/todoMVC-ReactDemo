@@ -3,27 +3,34 @@ import ReactDom from 'react-dom'
 
 export default class List extends React.Component {
     render() {
+        const list=this.props.commonList
         return (
             <section className="main">
                 <input id="toggle-all" className="toggle-all" type="checkbox" />
                 <label htmlFor="toggle-all">Mark all as complete</label>
                 <ul className="todo-list">
-                    <li className="completed">
-                        <div className="view">
-                            <input className="toggle" type="checkbox" checked />
-                            <label>Taste JavaScript</label>
-                            <button className="destroy"></button>
-                        </div>
-                        <input className="edit" value="Create a TodoMVC template" />
-                    </li>
-                    <li>
-                        <div className="view">
-                            <input className="toggle" type="checkbox" />
-                            <label>Buy a unicorn</label>
-                            <button className="destroy"></button>
-                        </div>
-                        <input className="edit" value="Rule the web" />
-                    </li>
+                {
+                    list.map(item=>{
+                        return (
+                            <li className="completed" key={item.id}>
+                                <div className="view">
+                                    <input className="toggle" type="checkbox" checked />
+                                    <label>{item.name}</label>
+                                    <button className="destroy"></button>
+                                </div>
+                                <input className="edit" value="Create a TodoMVC template" onChange={e=>{
+                                    this.state.list=e.target.value
+                                    this.setState({})
+                                }} />
+                            </li>
+                        )
+                           
+                        
+                    })
+                      
+                }
+                  
+                   
                 </ul>
             </section >
         )
