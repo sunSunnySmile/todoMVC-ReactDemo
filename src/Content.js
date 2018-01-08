@@ -28,21 +28,22 @@ export default class Content extends React.Component {
         addData(newData){
             this.state.list.push(newData)
             this.setState({})
-            // this.setState({
-            //     id:Math.random(),
-            //     name:this.state.list.name,
-            //     idCompleted:false
-            // })
         }
 
-
+        // 5.删除数据
+        delData(id){
+            this.state.list= this.state.list.filter(item=>{
+                return item.id !==id
+            })
+            this.setState({})
+        }
 
 
     render() {
         return (
             <section className="todoapp">
                <Add addData={this.addData.bind(this)}/>
-               <List  commonList={this.state.list}/>
+               <List delData={this.delData.bind(this)}  commonList={this.state.list}/>
                <Footer/>
 		    </section>
                     )

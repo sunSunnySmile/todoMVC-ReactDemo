@@ -1037,7 +1037,9 @@ var List = function (_React$Component) {
                                     null,
                                     item.name
                                 ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button', { className: 'destroy' })
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button', { className: 'destroy', onClick: function onClick(e) {
+                                        _this2.props.delData(item.id);
+                                    } })
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'edit', value: 'Create a TodoMVC template', onChange: function onChange(e) {
                                     _this2.state.list = e.target.value;
@@ -7843,11 +7845,17 @@ var Content = function (_React$Component) {
         value: function addData(newData) {
             this.state.list.push(newData);
             this.setState({});
-            // this.setState({
-            //     id:Math.random(),
-            //     name:this.state.list.name,
-            //     idCompleted:false
-            // })
+        }
+
+        // 5.删除数据
+
+    }, {
+        key: 'delData',
+        value: function delData(id) {
+            this.state.list = this.state.list.filter(function (item) {
+                return item.id !== id;
+            });
+            this.setState({});
         }
     }, {
         key: 'render',
@@ -7856,7 +7864,7 @@ var Content = function (_React$Component) {
                 'section',
                 { className: 'todoapp' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Add_js__["a" /* default */], { addData: this.addData.bind(this) }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { commonList: this.state.list }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { delData: this.delData.bind(this), commonList: this.state.list }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], null)
             );
         }

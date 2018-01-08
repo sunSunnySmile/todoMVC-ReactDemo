@@ -16,7 +16,9 @@ export default class List extends React.Component {
                                 <div className="view">
                                     <input className="toggle" type="checkbox" checked />
                                     <label>{item.name}</label>
-                                    <button className="destroy"></button>
+                                    <button className="destroy" onClick={e=>{
+                                        this.props.delData(item.id)
+                                    }}></button>
                                 </div>
                                 <input className="edit" value="Create a TodoMVC template" onChange={e=>{
                                     this.state.list=e.target.value
