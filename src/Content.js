@@ -24,13 +24,24 @@ export default class Content extends React.Component {
         // 3.手动实现数据的双向绑定--定义一个onChange事件
         // 3.1在展示数据的时候，定义一个onChang事件，将输入的数据与已存在的数据指向同一个指向this.state.list
 
+        // 4.添加数据
+        addData(newData){
+            this.state.list.push(newData)
+            this.setState({})
+            // this.setState({
+            //     id:Math.random(),
+            //     name:this.state.list.name,
+            //     idCompleted:false
+            // })
+        }
+
 
 
 
     render() {
         return (
             <section className="todoapp">
-               <Add/>
+               <Add addData={this.addData.bind(this)}/>
                <List  commonList={this.state.list}/>
                <Footer/>
 		    </section>
