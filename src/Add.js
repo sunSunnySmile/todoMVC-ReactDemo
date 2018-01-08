@@ -15,13 +15,29 @@ export default class Add extends React.Component{
             name:e.target.value
         })
     }
+
+    // 2.提交数据
+    submitHandler(e){
+        e.preventDefault();
+        if (!this.state.name.trim()) return;
+        this.props.addData({
+            id:Math.random(),
+            name:this.state.name,
+            isCompleted:false
+        })
+        this.setState({})
+        this.state.name=''
+    }
+
+
+
     render(){
         return(
             <header className="header">
             <h1>todos</h1>
-            <from>
+            <form onSubmit={this.submitHandler.bind(this)}>
                 <input  onChange={this.changeHandler.bind(this)} value={this.state.name} className="new-todo" placeholder="What needs to be done?" autoFocus />
-            </from>
+            </form>
             
            </header>
         )

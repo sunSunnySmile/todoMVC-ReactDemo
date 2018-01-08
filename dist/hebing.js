@@ -7910,6 +7910,22 @@ var Add = function (_React$Component) {
                 name: e.target.value
             });
         }
+
+        // 2.提交数据
+
+    }, {
+        key: 'submitHandler',
+        value: function submitHandler(e) {
+            e.preventDefault();
+            if (!this.state.name.trim()) return;
+            this.props.addData({
+                id: Math.random(),
+                name: this.state.name,
+                isCompleted: false
+            });
+            this.setState({});
+            this.state.name = '';
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -7922,8 +7938,8 @@ var Add = function (_React$Component) {
                     'todos'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'from',
-                    null,
+                    'form',
+                    { onSubmit: this.submitHandler.bind(this) },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.changeHandler.bind(this), value: this.state.name, className: 'new-todo', placeholder: 'What needs to be done?', autoFocus: true })
                 )
             );
