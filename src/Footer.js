@@ -17,7 +17,9 @@ export default class Add extends React.Component {
                         <a href="#/completed">Completed</a>
                     </li>
                 </ul>
-                <button className="clear-completed">Clear completed</button>
+                <button className="clear-completed" onClick={e=>{
+                    this.props.clearCompleted()
+                }}>Clear completed</button>
             </footer>
         )
     }

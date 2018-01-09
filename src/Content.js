@@ -62,6 +62,14 @@ export default class Content extends React.Component {
                 return tepmData.length
             }
 
+            // 11.清空已完成的任务  Clear completed
+            clearCompleted(){
+                this.state.list=this.state.list.filter(item=>{
+                    return !item.isCompleted
+                })
+                this.setState({})
+            }
+
 
 
 
@@ -73,7 +81,7 @@ export default class Content extends React.Component {
             <section className="todoapp">
                <Add addData={this.addData.bind(this)}/>
                <List dataUpdate={this.dataUpdate.bind(this)} delData={this.delData.bind(this)}  commonList={this.state.list}/>
-               <Footer dataLeft={this.dataLeft()}/>
+               <Footer clearCompleted={this.clearCompleted.bind(this)} dataLeft={this.dataLeft()}/>
 		    </section>
                     )
 

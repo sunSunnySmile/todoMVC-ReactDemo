@@ -7909,6 +7909,17 @@ var Content = function (_React$Component) {
             });
             return tepmData.length;
         }
+
+        // 11.清空已完成的任务  Clear completed
+
+    }, {
+        key: 'clearCompleted',
+        value: function clearCompleted() {
+            this.state.list = this.state.list.filter(function (item) {
+                return !item.isCompleted;
+            });
+            this.setState({});
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -7917,7 +7928,7 @@ var Content = function (_React$Component) {
                 { className: 'todoapp' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Add_js__["a" /* default */], { addData: this.addData.bind(this) }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { dataUpdate: this.dataUpdate.bind(this), delData: this.delData.bind(this), commonList: this.state.list }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], { dataLeft: this.dataLeft() })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], { clearCompleted: this.clearCompleted.bind(this), dataLeft: this.dataLeft() })
             );
         }
     }]);
@@ -8048,6 +8059,8 @@ var Add = function (_React$Component) {
     _createClass(Add, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'footer',
                 { className: 'footer' },
@@ -8094,7 +8107,9 @@ var Add = function (_React$Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
-                    { className: 'clear-completed' },
+                    { className: 'clear-completed', onClick: function onClick(e) {
+                            _this2.props.clearCompleted();
+                        } },
                     'Clear completed'
                 )
             );
