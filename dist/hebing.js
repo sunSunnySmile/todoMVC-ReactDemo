@@ -7839,6 +7839,7 @@ var Content = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).call(this));
 
         _this.state = {
+            type: 'All',
             list: []
         };
         return _this;
@@ -7920,15 +7921,50 @@ var Content = function (_React$Component) {
             });
             this.setState({});
         }
+
+        // 12.实现all active completed三者属性之间的切换
+        // 12.1 定义一个获取属性值的函数，将属性值存放到this.state中
+
+    }, {
+        key: 'setType',
+        value: function setType(str) {
+            this.setState({
+                type: str
+            });
+        }
+
+        // 13.根据不同的属性值获取不同的数据---判断switch--case
+        // 13.1渲染前调用函数，把获取到的数据存起来，放在commonList中
+        // 13.2把渲染的数据写活，赋值给要渲染的数据变量，注意：不能改变真正的数据值
+
+    }, {
+        key: 'filterData',
+        value: function filterData(str) {
+            var list = this.state.list;
+            switch (str) {
+                case 'All':
+                    return list;
+                case 'Active':
+                    return list.filter(function (item) {
+                        return !item.isCompleted;
+                    });
+                case 'Completed':
+                    return list.filter(function (item) {
+                        return item.isCompleted;
+                    });
+            }
+            this.setState({});
+        }
     }, {
         key: 'render',
         value: function render() {
+            var commonList = this.filterData(this.state.type);
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'section',
                 { className: 'todoapp' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Add_js__["a" /* default */], { addData: this.addData.bind(this) }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { dataUpdate: this.dataUpdate.bind(this), delData: this.delData.bind(this), commonList: this.state.list }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], { clearCompleted: this.clearCompleted.bind(this), dataLeft: this.dataLeft() })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { dataUpdate: this.dataUpdate.bind(this), delData: this.delData.bind(this), commonList: commonList }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], { setType: this.setType.bind(this), clearCompleted: this.clearCompleted.bind(this), dataLeft: this.dataLeft() })
             );
         }
     }]);
@@ -8079,7 +8115,9 @@ var Add = function (_React$Component) {
                     { className: 'filters' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        null,
+                        { onClick: function onClick(e) {
+                                _this2.props.setType('All');
+                            } },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
                             { className: 'selected', href: '#/' },
@@ -8088,7 +8126,9 @@ var Add = function (_React$Component) {
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        null,
+                        { onClick: function onClick(e) {
+                                _this2.props.setType('Active');
+                            } },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
                             { href: '#/active' },
@@ -8097,7 +8137,9 @@ var Add = function (_React$Component) {
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        null,
+                        { onClick: function onClick(e) {
+                                _this2.props.setType('Completed');
+                            } },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
                             { href: '#/completed' },

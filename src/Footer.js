@@ -7,13 +7,19 @@ export default class Add extends React.Component {
             <footer className="footer">
                 <span className="todo-count"><strong>{this.props.dataLeft}</strong> item left</span>
                 <ul className="filters">
-                    <li>
+                    <li onClick={e=>{
+                        this.props.setType('All')
+                    }}>
                         <a className="selected" href="#/">All</a>
                     </li>
-                    <li>
+                    <li onClick={e=>{
+                        this.props.setType('Active')
+                    }}>
                         <a href="#/active">Active</a>
                     </li>
-                    <li>
+                    <li onClick={e=>{
+                        this.props.setType('Completed')
+                    }}>
                         <a href="#/completed">Completed</a>
                     </li>
                 </ul>
