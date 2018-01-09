@@ -52,8 +52,16 @@ export default class Content extends React.Component {
         componentWillUpdate(){
             window.localStorage.setItem('todos',JSON.stringify(this.state.list))
         }
-        // 9.更改完成状态与否--改变isCompleted的属性值
-        
+        // 9.更改完成状态与否--改变isCompleted的属性值--只需将状态值取反就好
+
+        // 10.底部剩余项帅选
+            dataLeft(){
+               const tepmData=this.state.list.filter(item=>{
+                    return !item.isCompleted
+                })
+                return tepmData.length
+            }
+
 
 
 
@@ -65,7 +73,7 @@ export default class Content extends React.Component {
             <section className="todoapp">
                <Add addData={this.addData.bind(this)}/>
                <List dataUpdate={this.dataUpdate.bind(this)} delData={this.delData.bind(this)}  commonList={this.state.list}/>
-               <Footer/>
+               <Footer dataLeft={this.dataLeft()}/>
 		    </section>
                     )
 

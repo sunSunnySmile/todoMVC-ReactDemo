@@ -7897,9 +7897,18 @@ var Content = function (_React$Component) {
         value: function componentWillUpdate() {
             window.localStorage.setItem('todos', JSON.stringify(this.state.list));
         }
-        // 9.更改完成状态与否--改变isCompleted的属性值
+        // 9.更改完成状态与否--改变isCompleted的属性值--只需将状态值取反就好
 
+        // 10.底部剩余项帅选
 
+    }, {
+        key: 'dataLeft',
+        value: function dataLeft() {
+            var tepmData = this.state.list.filter(function (item) {
+                return !item.isCompleted;
+            });
+            return tepmData.length;
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -7908,7 +7917,7 @@ var Content = function (_React$Component) {
                 { className: 'todoapp' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Add_js__["a" /* default */], { addData: this.addData.bind(this) }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { dataUpdate: this.dataUpdate.bind(this), delData: this.delData.bind(this), commonList: this.state.list }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], null)
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], { dataLeft: this.dataLeft() })
             );
         }
     }]);
@@ -8048,7 +8057,7 @@ var Add = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'strong',
                         null,
-                        '0'
+                        this.props.dataLeft
                     ),
                     ' item left'
                 ),
