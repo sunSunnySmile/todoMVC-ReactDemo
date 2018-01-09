@@ -1003,7 +1003,12 @@ var List = function (_React$Component) {
     function List() {
         _classCallCheck(this, List);
 
-        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
+
+        _this.state = {
+            isEditing: -1
+        };
+        return _this;
     }
 
     _createClass(List, [{
@@ -1027,23 +1032,33 @@ var List = function (_React$Component) {
                     list.map(function (item) {
                         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'li',
-                            { className: 'completed', key: item.id },
+                            { className: "completed" + (_this2.state.isEditing === item.id ? ' editing' : ''), key: item.id },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'view' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'toggle', type: 'checkbox', checked: true }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'label',
-                                    null,
+                                    { onDoubleClick: function onDoubleClick(e) {
+                                            _this2.state.isEditing = item.id;
+                                            _this2.setState({}, function () {
+                                                _this2.refs[item.id].focus();
+                                            });
+                                        } },
                                     item.name
                                 ),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('button', { className: 'destroy', onClick: function onClick(e) {
                                         _this2.props.delData(item.id);
                                     } })
                             ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'edit', value: 'Create a TodoMVC template', onChange: function onChange(e) {
-                                    _this2.state.list = e.target.value;
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { ref: item.id, onBlur: function onBlur(e) {
+                                    //当失去焦点的时候将数据改为不可编辑状态
+                                    _this2.state.isEditing = -1;
                                     _this2.setState({});
+                                }, className: 'edit', value: item.name, onChange: function onChange(e) {
+                                    item.name = e.target.value;
+                                    _this2.setState({});
+                                    // 通过fef属性设置属性值，可以获取，然后设置获取焦点
                                 } })
                         );
                     })
@@ -7857,6 +7872,14 @@ var Content = function (_React$Component) {
             });
             this.setState({});
         }
+
+        // 6.修改数据
+        // 6.1双击时给元素添加editing的类，让输入框变成可编辑状态
+        // 6.2要让数据能够真正的实现可编写，必须进行双向数据绑定---注册onchange事件
+        // 只要数据改变就要调用this.setstate（{}）渲染
+
+        // 7.将数据存入到本地存储中，利用生命周期函数
+
     }, {
         key: 'render',
         value: function render() {

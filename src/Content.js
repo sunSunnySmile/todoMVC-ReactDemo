@@ -38,6 +38,12 @@ export default class Content extends React.Component {
             this.setState({})
         }
 
+        // 6.修改数据
+        // 6.1双击时给元素添加editing的类，让输入框变成可编辑状态
+        // 6.2要让数据能够真正的实现可编写，必须进行双向数据绑定---注册onchange事件
+        // 只要数据改变就要调用this.setstate（{}）渲染
+        
+        // 7.将数据存入到本地存储中，利用生命周期函数
 
     render() {
         return (

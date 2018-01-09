@@ -2,6 +2,12 @@ import React from 'react'
 import ReactDom from 'react-dom'
 
 export default class List extends React.Component {
+    constructor(){
+        super()
+        this.state={
+            isEditing:-1,
+        }
+    }
     render() {
         const list=this.props.commonList
         return (
@@ -12,27 +18,32 @@ export default class List extends React.Component {
                 {
                     list.map(item=>{
                         return (
-                            <li className="completed" key={item.id}>
+                            <li className={"completed"+(this.state.isEditing===item.id?' editing':'')} key={item.id}>
                                 <div className="view">
                                     <input className="toggle" type="checkbox" checked />
-                                    <label>{item.name}</label>
+                                    <label onDoubleClick={e=>{
+                                        this.state.isEditing=item.id
+                                        this.setState({},()=>{
+                                            this.refs[item.id].focus()
+                                        })
+                                    }}>{item.name}</label>
                                     <button className="destroy" onClick={e=>{
                                         this.props.delData(item.id)
                                     }}></button>
                                 </div>
-                                <input className="edit" value="Create a TodoMVC template" onChange={e=>{
-                                    this.state.list=e.target.value
+                                <input ref={item.id} onBlur={e=>{
+                                    //当失去焦点的时候将数据改为不可编辑状态
+                                    this.state.isEditing=-1
                                     this.setState({})
+                                }} className="edit" value={item.name} onChange={e=>{
+                                    item.name=e.target.value
+                                    this.setState({})
+                                    // 通过fef属性设置属性值，可以获取，然后设置获取焦点
                                 }} />
                             </li>
                         )
-                           
-                        
                     })
-                      
                 }
-                  
-                   
                 </ul>
             </section >
         )
