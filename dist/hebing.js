@@ -1057,7 +1057,8 @@ var List = function (_React$Component) {
                                     _this2.setState({});
                                 }, className: 'edit', value: item.name, onChange: function onChange(e) {
                                     item.name = e.target.value;
-                                    _this2.setState({});
+                                    // this.setState({})
+                                    _this2.props.dataUpdate();
                                     // 通过fef属性设置属性值，可以获取，然后设置获取焦点
                                 } })
                         );
@@ -7878,8 +7879,21 @@ var Content = function (_React$Component) {
         // 6.2要让数据能够真正的实现可编写，必须进行双向数据绑定---注册onchange事件
         // 只要数据改变就要调用this.setstate（{}）渲染
 
-        // 7.将数据存入到本地存储中，利用生命周期函数
+        // 7.this.setstate（{}）只会更新本组件及其子组件的数据，所以要在父组件中更新，才能更新全局的数据，子组件调用也会更新父组件的内容
 
+    }, {
+        key: 'dataUpdate',
+        value: function dataUpdate() {
+            this.setState({});
+        }
+
+        // 8.将数据存入到本地存储中，利用生命周期函数
+
+    }, {
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate() {
+            window.localStorage.setItem('todos', JSON.stringify(this.state.list));
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -7887,7 +7901,7 @@ var Content = function (_React$Component) {
                 'section',
                 { className: 'todoapp' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Add_js__["a" /* default */], { addData: this.addData.bind(this) }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { delData: this.delData.bind(this), commonList: this.state.list }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__List_js__["a" /* default */], { dataUpdate: this.dataUpdate.bind(this), delData: this.delData.bind(this), commonList: this.state.list }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Footer_js__["a" /* default */], null)
             );
         }

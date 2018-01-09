@@ -37,7 +37,8 @@ export default class List extends React.Component {
                                     this.setState({})
                                 }} className="edit" value={item.name} onChange={e=>{
                                     item.name=e.target.value
-                                    this.setState({})
+                                    // this.setState({})
+                                    this.props.dataUpdate()
                                     // 通过fef属性设置属性值，可以获取，然后设置获取焦点
                                 }} />
                             </li>
