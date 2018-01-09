@@ -52,6 +52,9 @@ export default class Content extends React.Component {
         componentWillUpdate(){
             window.localStorage.setItem('todos',JSON.stringify(this.state.list))
         }
+        // 9.更改完成状态与否--改变isCompleted的属性值
+        
+
 
 
 

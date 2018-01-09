@@ -18,9 +18,12 @@ export default class List extends React.Component {
                 {
                     list.map(item=>{
                         return (
-                            <li className={"completed"+(this.state.isEditing===item.id?' editing':'')} key={item.id}>
+                            <li className={(item.isCompleted?'completed':'')+(this.state.isEditing===item.id?' editing':'')} key={item.id}>
                                 <div className="view">
-                                    <input className="toggle" type="checkbox" checked />
+                                    <input className="toggle" type="checkbox" onChange={e=>{
+                                        item.isCompleted=!item.isCompleted
+                                        this.props.dataUpdate()
+                                    }} checked={item.isCompleted} />
                                     <label onDoubleClick={e=>{
                                         this.state.isEditing=item.id
                                         this.setState({},()=>{

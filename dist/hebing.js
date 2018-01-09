@@ -1032,11 +1032,14 @@ var List = function (_React$Component) {
                     list.map(function (item) {
                         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'li',
-                            { className: "completed" + (_this2.state.isEditing === item.id ? ' editing' : ''), key: item.id },
+                            { className: (item.isCompleted ? 'completed' : '') + (_this2.state.isEditing === item.id ? ' editing' : ''), key: item.id },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'view' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'toggle', type: 'checkbox', checked: true }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'toggle', type: 'checkbox', onChange: function onChange(e) {
+                                        item.isCompleted = !item.isCompleted;
+                                        _this2.props.dataUpdate();
+                                    }, checked: item.isCompleted }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'label',
                                     { onDoubleClick: function onDoubleClick(e) {
@@ -7894,6 +7897,9 @@ var Content = function (_React$Component) {
         value: function componentWillUpdate() {
             window.localStorage.setItem('todos', JSON.stringify(this.state.list));
         }
+        // 9.更改完成状态与否--改变isCompleted的属性值
+
+
     }, {
         key: 'render',
         value: function render() {
